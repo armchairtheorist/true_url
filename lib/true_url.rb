@@ -8,7 +8,8 @@ class TrueURL
     attr_accessor :context
 
 	OPTIONS = {
-    	:default_scheme => "https" # Possible choices: "https", "http", nil (preserve scheme)
+    	:default_scheme => "https",    # Possible choices: "https", "http", nil (preserve scheme)
+        :base_url => ""                # Can accept either a String or an Addressable::URI object 
     }.freeze
     
     def initialize (url, options = {})
@@ -16,12 +17,7 @@ class TrueURL
     end
 
     def canonical
-		while true do
-            @context.retry_strategy = false
-			TrueURL::Strategy.find(@context).find_canonical(@context)
-			break unless @context.retry_strategy?
-		end
-
+        TrueURL::Strategy.run(@context)
     	set_scheme
 
     	return @context.working_url.to_s

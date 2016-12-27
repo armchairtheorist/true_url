@@ -5,12 +5,40 @@ def gc (unclean_url)
 end
 
 describe TrueURL do
-    it "should work with YouTube" do
-		t = "https://www.youtube.com/watch?v=RDocnbkHjhI"
-        expect(gc("https://youtu.be/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0")).to eq t
-        expect(gc("https://www.youtube.com/embed/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0")).to eq t
-        expect(gc("https://www.youtube-nocookie.com/embed/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0&amp;controls=0&amp;showinfo=0")).to eq t
-	end
+    
+    describe "YouTube" do
+
+        it "supports direct video links" do
+    		t = "https://www.youtube.com/watch?v=RDocnbkHjhI"
+            expect(gc("https://www.youtube.com/watch?v=RDocnbkHjhI")).to eq t
+            expect(gc("https://www.youtube.com/watch?v=RDocnbkHjhI&feature=youtu.be&list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0")).to eq t
+            expect(gc("https://youtu.be/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0")).to eq t
+        end
+
+        it "supports embedded video links" do
+            t = "https://www.youtube.com/watch?v=RDocnbkHjhI"
+            expect(gc("https://www.youtube.com/embed/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0")).to eq t
+            expect(gc("https://www.youtube-nocookie.com/embed/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0&amp;controls=0&amp;showinfo=0")).to eq t
+        end
+
+        it "supports direct playlist links" do
+            t = "https://www.youtube.com/playlist?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY"
+            expect(gc("https://www.youtube.com/playlist?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY")).to eq t
+            expect(gc("https://www.youtube.com/playlist?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY")).to eq t
+        end
+
+        it "supports embedded playlist links" do
+            t = "https://www.youtube.com/playlist?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY"
+            expect(gc("https://www.youtube.com/embed/videoseries?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY")).to eq t
+            expect(gc("https://www.youtube-nocookie.com/embed/videoseries?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY")).to eq t
+    	end
+
+        it "supports direct channel links" do
+            t = "https://www.youtube.com/user/WatchMojo"
+            expect(gc("https://www.youtube.com/channel/UCaWd5_7JhbQBe4dknZhsHJg")).to eq t
+        end
+
+    end
 
     it "should work with DailyMotion" do
 		t = "https://www.dailymotion.com/video/x2k01a9"
