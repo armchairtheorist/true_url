@@ -1,0 +1,3 @@
+class TrueURL
+    VERSION = "0.0.1"
+end
