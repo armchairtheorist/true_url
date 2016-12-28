@@ -44,6 +44,8 @@ class TrueURL
           cpath[0..cpath.index('_') - 1]
         elsif cpath.index('/') 
           cpath[0..cpath.index('/') - 1]
+        else
+          cpath[0..-1]
         end
       end
     end
