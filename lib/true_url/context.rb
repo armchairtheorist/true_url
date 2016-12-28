@@ -7,17 +7,19 @@ class TrueURL
       @options = options
       @finalized = false
       @attributes = {}
-      @base_url = @options[:base_url].nil? ? @original_url.normalize : parse(@options[:base_url]).normalize
 
       set_working_url(original_url)
     end
 
     def set_working_url(url)
-      @working_url = @base_url.nil? ? parse(url) : @base_url.join(parse(url))
-      @working_url.normalize
+      @working_url = parse(url)
 
-      # If the URL has a host but not scheme even after joining with the base URL, then we assume HTTP
-      @working_url.scheme = 'http' if @working_url.scheme.nil? && @working_url.host
+      # If the URL has no scheme, then we assume HTTP
+      if @working_url.scheme.nil?
+        @working_url = url.to_s.start_with?('//') ? parse("http:#{url.to_s}") : parse("http://#{url.to_s}") 
+      end
+
+      @working_url.normalize
     end
 
     def finalize

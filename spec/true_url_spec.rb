@@ -164,25 +164,6 @@ describe TrueURL do
   #   end
   # end
 
-  # describe 'Base + Relative URL Scenarios' do
-  #   it 'supports relative URLs (base URL provided)' do
-  #     t = 'http://www.techmeme.com/about'
-  #     base = 'http://www.techmeme.com'
-  #     expect(gc('/about', base_url: base)).to eq t
-  #   end
-
-  #   it 'supports relative URLs (no base URL provided)' do
-  #     t = '/about'
-  #     expect(gc('/about')).to eq t
-  #   end
-
-  #   it 'supports removing fragments' do
-  #     t = 'http://www.techmeme.com/161227/p4'
-  #     base = 'http://www.techmeme.com'
-  #     expect(gc('/161227/p4#a161227p4', base_url: base)).to eq t
-  #   end
-  # end
-
   # describe 'Other Scenarios' do
   #   it 'supports missing schemes' do
   #     t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'

@@ -10,8 +10,7 @@ class TrueURL
   attr_accessor :context, :strategies
 
   OPTIONS = {
-    scheme_override: nil, # Possible choices: "https", "http", nil (preserve scheme)
-    base_url: nil # Can accept either a String or an Addressable::URI object
+    scheme_override: nil # Possible choices: "https", "http", nil (preserve scheme)
   }.freeze
 
   QUERY_VALUES_TO_REMOVE = %w(
