@@ -38,10 +38,10 @@ describe TrueURL do
 
     it 'supports retrieving embed links as attributes' do
       x = TrueURL.new('https://www.youtube-nocookie.com/embed/videoseries?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY')
-      expect(x.attributes[:youtube_embed]).to eq 'https://www.youtube.com/embed/videoseries?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY'
+      expect(x.attributes[:embed_url]).to eq 'https://www.youtube.com/embed/videoseries?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY'
 
       x = TrueURL.new('https://www.youtube.com/embed/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0&amp;controls=0&amp;showinfo=0')
-      expect(x.attributes[:youtube_embed_no_cookie]).to eq 'https://www.youtube-nocookie.com/embed/RDocnbkHjhI'
+      expect(x.attributes[:embed_url_private]).to eq 'https://www.youtube-nocookie.com/embed/RDocnbkHjhI'
     end
   end
 
@@ -66,7 +66,12 @@ describe TrueURL do
 
     it 'supports retrieving embed links as attributes' do
       x = TrueURL.new('http://www.dailymotion.com/video/x2k01a9_battlefield-what-s-it-like-to-be-in-a-real-life-video-game_fun')
-      expect(x.attributes[:dailymotion_embed]).to eq 'https://www.dailymotion.com/embed/video/x2k01a9'
+      expect(x.attributes[:embed_url]).to eq 'https://www.dailymotion.com/embed/video/x2k01a9'
+    end
+
+    it 'supports force HTTPS'do
+      t = "https://www.dailymotion.com/ODNandfinally"
+      expect(gc("http://www.dailymotion.com/ODNandfinally")).to eq t
     end
   end
 
@@ -85,24 +90,32 @@ describe TrueURL do
     it "supports Vimeo's relative canonical links" do
       t = "https://vimeo.com/channels/staffpicks"
       expect(gc("http://vimeo.com/channels/staffpicks?some=silly&params=here")).to eq t
-
-      t = "https://vimeo.com/user3190002"
-      expect(gc("http://vimeo.com/user3190002")).to eq t
     end
 
     it 'supports retrieving embed links as attributes' do
       x = TrueURL.new('https://vimeo.com/channels/staffpicks/122258599')
-      expect(x.attributes[:vimeo_embed]).to eq 'https://player.vimeo.com/video/122258599'
+      expect(x.attributes[:embed_url]).to eq 'https://player.vimeo.com/video/122258599'
+    end
+
+    it 'supports force HTTPS' do
+      t = "https://vimeo.com/user3190002"
+      expect(gc("http://vimeo.com/user3190002")).to eq t
     end
   end
 
+  describe "Nico Nico Douga" do
+    it "should work with direct and embedded video links" do
+      t = "http://www.nicovideo.jp/watch/sm25956031"
+      expect(gc("http://ext.nicovideo.jp/thumb_watch/sm25956031?w=490&h=307")).to eq t
+      expect(gc("http://embed.nicovideo.jp/watch/sm25956031/script?w=490&h=307&redirect=1")).to eq t
+      expect(gc("http://embed.nicovideo.jp/watch/sm25956031?oldScript=1")).to eq t
+    end
 
-
-  #    it "should work with Nico Nicno Douga" do
-  # 	t = "https://www.nicovideo.jp/watch/sm25956031"
-  #        expect(gc("http://rd.nicovideo.jp/cc/ustop/translator?cc_id=sm25956031")).to eq t
-  #        expect(gc("http://ext.nicovideo.jp/thumb_watch/sm25956031?w=490&h=307")).to eq t
-  # end
+    it 'supports retrieving embed links as attributes' do
+      x = TrueURL.new('http://ext.nicovideo.jp/thumb_watch/sm25956031?w=490&h=307')
+      expect(x.attributes[:embed_url]).to eq 'http://embed.nicovideo.jp/watch/sm25956031'
+    end
+  end
 
   #    it "should work with Vine" do
   # 	t = "https://vine.co/v/Ol2jhmDTn6D"

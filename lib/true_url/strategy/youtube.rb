@@ -23,15 +23,15 @@ class TrueURL
         unless video_id.nil?
           context.set_working_url("https://www.youtube.com/watch?v=#{video_id}")
           context.finalize
-          context.attributes[:youtube_embed] = "https://www.youtube.com/embed/#{video_id}"
-          context.attributes[:youtube_embed_no_cookie] = "https://www.youtube-nocookie.com/embed/#{video_id}"
+          context.attributes[:embed_url] = "https://www.youtube.com/embed/#{video_id}"
+          context.attributes[:embed_url_private] = "https://www.youtube-nocookie.com/embed/#{video_id}"
         end
 
         unless playlist_id.nil?
           context.set_working_url("https://www.youtube.com/playlist?list=#{playlist_id}")
           context.finalize
-          context.attributes[:youtube_embed] = "https://www.youtube.com/embed/videoseries?list=#{playlist_id}"
-          context.attributes[:youtube_embed_no_cookie] = "https://www.youtube-nocookie.com/embed/videoseries?list=#{playlist_id}"
+          context.attributes[:embed_url] = "https://www.youtube.com/embed/videoseries?list=#{playlist_id}"
+          context.attributes[:embed_url_private] = "https://www.youtube-nocookie.com/embed/videoseries?list=#{playlist_id}"
         end
       end
     end

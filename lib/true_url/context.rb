@@ -11,8 +11,8 @@ class TrueURL
       set_working_url(original_url)
     end
 
-    def set_working_url(url)
-      @working_url = parse(url)
+    def set_working_url(url, base_url = nil)
+      @working_url = base_url.nil? ? parse(url) : parse(base_url).join(parse(url))
 
       # If the URL has no scheme, then we assume HTTP
       if @working_url.scheme.nil?

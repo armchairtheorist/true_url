@@ -10,7 +10,8 @@ class TrueURL
   attr_accessor :context, :strategies
 
   OPTIONS = {
-    scheme_override: nil # Possible choices: "https", "http", nil (preserve scheme)
+    scheme_override: nil, # Possible choices: "https", "http", nil (preserve scheme)
+    fetch: true # Whether to fetch the URL
   }.freeze
 
   QUERY_VALUES_TO_REMOVE = %w(
@@ -79,6 +80,8 @@ class TrueURL
   end
 
   def attempt_fetch?
+    return false unless @context.options[:fetch]
+
     # Must at least have a host, otherwise we can't find the site to crawl
     return false if @context.working_url.host.nil?
 
@@ -87,11 +90,13 @@ class TrueURL
   end
 
   def fetch
+    starting_url = @context.working_url
+
     response = HTTP.follow
-      .get(@context.working_url)
+      .get(starting_url)
 
     canonical_url = find_canonical_header(response.headers) || find_canonical_url(response.to_s) || response.uri
-    @context.set_working_url(canonical_url)
+    @context.set_working_url(canonical_url, starting_url)
   end
 
   def find_canonical_header(_headers)

@@ -20,13 +20,16 @@ class TrueURL
         unless video_id.nil?
           context.set_working_url("https://www.dailymotion.com/video/#{video_id}")
           context.finalize
-          context.attributes[:dailymotion_embed] = "https://www.dailymotion.com/embed/video/#{video_id}"
+          context.attributes[:embed_url] = "https://www.dailymotion.com/embed/video/#{video_id}"
         end
 
         unless playlist_id.nil?
           context.set_working_url("https://www.dailymotion.com/playlist/#{playlist_id}")
           context.finalize
         end
+
+        # DailyMotion supports both HTTP and HTTPS and doesn't redirect between them, so we prefer HTTPS
+        context.working_url.scheme = "https"
       end
 
       def clean_video_id (path)
