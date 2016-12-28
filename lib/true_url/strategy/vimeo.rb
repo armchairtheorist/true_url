@@ -7,10 +7,10 @@ class TrueURL
         if context.working_url.host == 'player.vimeo.com'
           video_id = path[7..-1]
 
-        elsif path.match(/^\/channels\/\w+\/\d+$/)
+        elsif path =~ /^\/channels\/\w+\/\d+$/
           video_id = path.split('/').last
-        
-        elsif path.match(/^\/\d+$/)
+
+        elsif path =~ /^\/\d+$/
           video_id = path[1..-1]
         end
 
@@ -21,7 +21,7 @@ class TrueURL
         end
 
         # Vimeo supports both HTTP and HTTPS and doesn't redirect between them, so we prefer HTTPS
-        context.working_url.scheme = "https"
+        context.working_url.scheme = 'https'
       end
     end
   end

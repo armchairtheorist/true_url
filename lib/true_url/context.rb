@@ -16,7 +16,7 @@ class TrueURL
 
       # If the URL has no scheme, then we assume HTTP
       if @working_url.scheme.nil?
-        @working_url = url.to_s.start_with?('//') ? parse("http:#{url.to_s}") : parse("http://#{url.to_s}") 
+        @working_url = url.to_s.start_with?('//') ? parse("http:#{url}") : parse("http://#{url}")
       end
 
       @working_url.normalize

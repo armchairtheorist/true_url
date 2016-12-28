@@ -6,7 +6,7 @@ class TrueURL
 
         if path[0..6] == '/watch/'
           video_id = path.split('/')[2]
-        
+
         elsif path[0..12] == '/thumb_watch/'
           video_id = path.split('/')[2]
         end
@@ -18,7 +18,7 @@ class TrueURL
         end
 
         # Nico Video only supports HTTP
-        context.working_url.scheme = "http"
+        context.working_url.scheme = 'http'
       end
     end
   end

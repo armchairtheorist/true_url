@@ -12,7 +12,7 @@ class TrueURL
 
         elsif path[0..6] == '/embed/'
           video_id = path[13..-1]
-        
+
         elsif path[0..9] == '/playlist/'
           playlist_id = clean_playlist_id(path)
         end
@@ -29,10 +29,10 @@ class TrueURL
         end
 
         # DailyMotion supports both HTTP and HTTPS and doesn't redirect between them, so we prefer HTTPS
-        context.working_url.scheme = "https"
+        context.working_url.scheme = 'https'
       end
 
-      def clean_video_id (path)
+      def clean_video_id(path)
         if path.index('_')
           path[7..path.index('_') - 1]
         else
@@ -40,12 +40,12 @@ class TrueURL
         end
       end
 
-      def clean_playlist_id (path)
+      def clean_playlist_id(path)
         cpath = path[10..-1]
 
         if cpath.index('_')
           cpath[0..cpath.index('_') - 1]
-        elsif cpath.index('/') 
+        elsif cpath.index('/')
           cpath[0..cpath.index('/') - 1]
         else
           cpath[0..-1]

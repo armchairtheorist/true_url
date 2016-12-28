@@ -45,23 +45,23 @@ describe TrueURL do
     end
   end
 
-  describe "DailyMotion" do
-    it "supports direct video links" do
-      t = "https://www.dailymotion.com/video/x2k01a9"
-      expect(gc("http://dai.ly/x2k01a9")).to eq t
-      expect(gc("http://www.dailymotion.com/video/x2k01a9_battlefield-what-s-it-like-to-be-in-a-real-life-video-game_fun")).to eq t
+  describe 'DailyMotion' do
+    it 'supports direct video links' do
+      t = 'https://www.dailymotion.com/video/x2k01a9'
+      expect(gc('http://dai.ly/x2k01a9')).to eq t
+      expect(gc('http://www.dailymotion.com/video/x2k01a9_battlefield-what-s-it-like-to-be-in-a-real-life-video-game_fun')).to eq t
     end
 
-    it "supports embedded video links" do
-      t = "https://www.dailymotion.com/video/x2k01a9"
-      expect(gc("http://www.dailymotion.com/embed/video/x2k01a9?autoPlay=1&start=40")).to eq t
+    it 'supports embedded video links' do
+      t = 'https://www.dailymotion.com/video/x2k01a9'
+      expect(gc('http://www.dailymotion.com/embed/video/x2k01a9?autoPlay=1&start=40')).to eq t
     end
 
-    it "supports direct playlist links" do
-      t = "https://www.dailymotion.com/playlist/x1ybux"
-      expect(gc("https://www.dailymotion.com/playlist/x1ybux/1#video=xlbw3e")).to eq t
-      expect(gc("https://www.dailymotion.com/playlist/x1ybux")).to eq t
-      expect(gc("http://www.dailymotion.com/playlist/x1ybux_ODNandfinally_amazing-world-records/1#video=xlbw3e")).to eq t
+    it 'supports direct playlist links' do
+      t = 'https://www.dailymotion.com/playlist/x1ybux'
+      expect(gc('https://www.dailymotion.com/playlist/x1ybux/1#video=xlbw3e')).to eq t
+      expect(gc('https://www.dailymotion.com/playlist/x1ybux')).to eq t
+      expect(gc('http://www.dailymotion.com/playlist/x1ybux_ODNandfinally_amazing-world-records/1#video=xlbw3e')).to eq t
     end
 
     it 'supports retrieving embed links as attributes' do
@@ -69,27 +69,27 @@ describe TrueURL do
       expect(x.attributes[:embed_url]).to eq 'https://www.dailymotion.com/embed/video/x2k01a9'
     end
 
-    it 'supports force HTTPS'do
-      t = "https://www.dailymotion.com/ODNandfinally"
-      expect(gc("http://www.dailymotion.com/ODNandfinally")).to eq t
+    it 'supports force HTTPS' do
+      t = 'https://www.dailymotion.com/ODNandfinally'
+      expect(gc('http://www.dailymotion.com/ODNandfinally')).to eq t
     end
   end
 
-  describe "Vimeo" do
-    it "supports direct video links" do
-      t = "https://vimeo.com/122258599"
-      expect(gc("https://vimeo.com/channels/staffpicks/122258599")).to eq t
-      expect(gc("http://vimeo.com/122258599")).to eq t
+  describe 'Vimeo' do
+    it 'supports direct video links' do
+      t = 'https://vimeo.com/122258599'
+      expect(gc('https://vimeo.com/channels/staffpicks/122258599')).to eq t
+      expect(gc('http://vimeo.com/122258599')).to eq t
     end
 
-    it "supports embedded video links" do
-      t = "https://vimeo.com/122258599"
-      expect(gc("https://player.vimeo.com/video/122258599?loop=1&color=c9ff23&title=0")).to eq t
+    it 'supports embedded video links' do
+      t = 'https://vimeo.com/122258599'
+      expect(gc('https://player.vimeo.com/video/122258599?loop=1&color=c9ff23&title=0')).to eq t
     end
 
     it "supports Vimeo's relative canonical links" do
-      t = "https://vimeo.com/channels/staffpicks"
-      expect(gc("http://vimeo.com/channels/staffpicks?some=silly&params=here")).to eq t
+      t = 'https://vimeo.com/channels/staffpicks'
+      expect(gc('http://vimeo.com/channels/staffpicks?some=silly&params=here')).to eq t
     end
 
     it 'supports retrieving embed links as attributes' do
@@ -98,17 +98,17 @@ describe TrueURL do
     end
 
     it 'supports force HTTPS' do
-      t = "https://vimeo.com/user3190002"
-      expect(gc("http://vimeo.com/user3190002")).to eq t
+      t = 'https://vimeo.com/user3190002'
+      expect(gc('http://vimeo.com/user3190002')).to eq t
     end
   end
 
-  describe "Nico Nico Douga" do
-    it "should work with direct and embedded video links" do
-      t = "http://www.nicovideo.jp/watch/sm25956031"
-      expect(gc("http://ext.nicovideo.jp/thumb_watch/sm25956031?w=490&h=307")).to eq t
-      expect(gc("http://embed.nicovideo.jp/watch/sm25956031/script?w=490&h=307&redirect=1")).to eq t
-      expect(gc("http://embed.nicovideo.jp/watch/sm25956031?oldScript=1")).to eq t
+  describe 'Nico Nico Douga' do
+    it 'should work with direct and embedded video links' do
+      t = 'http://www.nicovideo.jp/watch/sm25956031'
+      expect(gc('http://ext.nicovideo.jp/thumb_watch/sm25956031?w=490&h=307')).to eq t
+      expect(gc('http://embed.nicovideo.jp/watch/sm25956031/script?w=490&h=307&redirect=1')).to eq t
+      expect(gc('http://embed.nicovideo.jp/watch/sm25956031?oldScript=1')).to eq t
     end
 
     it 'supports retrieving embed links as attributes' do
@@ -117,16 +117,16 @@ describe TrueURL do
     end
   end
 
-  describe "Twitter" do
-    it "supports direct links to tweets" do
-      t = "https://twitter.com/gangsta_project/status/578483098284748801"
-      expect(gc("https://twitter.com/GANGSTA_Project/status/578483098284748801/photo/1")).to eq t
-      expect(gc("https://twitter.com/GANGSTA_Project/status/578483098284748801/")).to eq t
+  describe 'Twitter' do
+    it 'supports direct links to tweets' do
+      t = 'https://twitter.com/gangsta_project/status/578483098284748801'
+      expect(gc('https://twitter.com/GANGSTA_Project/status/578483098284748801/photo/1')).to eq t
+      expect(gc('https://twitter.com/GANGSTA_Project/status/578483098284748801/')).to eq t
     end
 
-    it "should handle hashbangs" do
-      t = "https://twitter.com/gangsta_project/status/578483098284748801"
-      expect(gc("https://twitter.com/#!/GANGSTA_Project/status/578483098284748801/")).to eq t
+    it 'should handle hashbangs' do
+      t = 'https://twitter.com/gangsta_project/status/578483098284748801'
+      expect(gc('https://twitter.com/#!/GANGSTA_Project/status/578483098284748801/')).to eq t
     end
   end
 

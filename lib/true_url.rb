@@ -93,7 +93,7 @@ class TrueURL
     starting_url = @context.working_url
 
     response = HTTP.follow
-      .get(starting_url)
+                   .get(starting_url)
 
     canonical_url = find_canonical_header(response.headers) || find_canonical_url(response.to_s) || response.uri
     @context.set_working_url(canonical_url, starting_url)
@@ -102,9 +102,9 @@ class TrueURL
   def find_canonical_header(headers)
     return if headers['Link'].nil?
 
-    links = (headers['Link'].is_a? String) ? [ headers['Link'] ] : headers['Link'] 
+    links = (headers['Link'].is_a? String) ? [headers['Link']] : headers['Link']
     links.each { |link| return link.split(/[<>;]/)[1] if link.end_with?('rel="canonical"') }
-    return nil
+    nil
   end
 
   def find_canonical_url(html)
