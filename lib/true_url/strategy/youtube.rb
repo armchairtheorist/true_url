@@ -1,36 +1,39 @@
 class TrueURL
-	module Strategy
-		class YouTube
-			def find_canonical (context)
-				path = context.working_url.path
+  module Strategy
+    class YouTube
+      def find_canonical(context)
+        path = context.working_url.path
 
-				if context.working_url.host == "youtu.be"
-					video_id = path[1..-1]
-				
-				elsif path == "/watch"
-					video_id = context.working_url.query_values["v"]
-				
-				elsif path == "/playlist"
-					playlist_id = context.working_url.query_values["list"]
-				
-				elsif path[0..17] == "/embed/videoseries"
-					playlist_id = context.working_url.query_values["list"]
+        if context.working_url.host == 'youtu.be'
+          video_id = path[1..-1]
 
-				elsif path[0..6] == "/embed/"
-					video_id = path[7..-1]
-					
-				end
+        elsif path == '/watch'
+          video_id = context.working_url.query_values['v']
 
-				unless video_id.nil?
-					context.parse_new_url("https://www.youtube.com/watch?v=#{video_id}")
-					context.finalize
-				end
+        elsif path == '/playlist'
+          playlist_id = context.working_url.query_values['list']
 
-				unless playlist_id.nil?
-					context.parse_new_url("https://www.youtube.com/playlist?list=#{playlist_id}")
-					context.finalize
-				end
-			end
-		end
-	end
+        elsif path[0..17] == '/embed/videoseries'
+          playlist_id = context.working_url.query_values['list']
+
+        elsif path[0..6] == '/embed/'
+          video_id = path[7..-1]
+        end
+
+        unless video_id.nil?
+          context.set_working_url("https://www.youtube.com/watch?v=#{video_id}")
+          context.finalize
+          context.attributes[:youtube_embed] = "https://www.youtube.com/embed/#{video_id}"
+          context.attributes[:youtube_embed_no_cookie] = "https://www.youtube-nocookie.com/embed/#{video_id}"
+        end
+
+        unless playlist_id.nil?
+          context.set_working_url("https://www.youtube.com/playlist?list=#{playlist_id}")
+          context.finalize
+          context.attributes[:youtube_embed] = "https://www.youtube.com/embed/videoseries?list=#{playlist_id}"
+          context.attributes[:youtube_embed_no_cookie] = "https://www.youtube-nocookie.com/embed/videoseries?list=#{playlist_id}"
+        end
+      end
+    end
+  end
 end
