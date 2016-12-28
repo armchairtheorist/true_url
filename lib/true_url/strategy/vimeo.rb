@@ -1,7 +1,7 @@
 class TrueURL
   module Strategy
     class Vimeo
-      def find_canonical(context)
+      def execute(context)
         path = context.working_url.path
 
         if context.working_url.host == 'player.vimeo.com'

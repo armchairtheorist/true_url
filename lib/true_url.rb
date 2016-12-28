@@ -47,12 +47,12 @@ class TrueURL
   def execute
     return if @executed
 
-    try_strategies
+    execute_strategies
 
     unless @context.finalized?
       if attempt_fetch?
         fetch
-        try_strategies
+        execute_strategies
       end
     end
 
@@ -63,12 +63,12 @@ class TrueURL
     @executed = true
   end
 
-  def try_strategies
+  def execute_strategies
     @strategies.each do |s|
       match_criteria = s[0]
       strategy = s[1]
 
-      strategy.find_canonical(@context) unless @context.finalized? || !strategy_match?(match_criteria)
+      strategy.execute(@context) unless @context.finalized? || !strategy_match?(match_criteria)
     end
   end
 
@@ -76,7 +76,7 @@ class TrueURL
     return true if match_criteria.nil?
 
     host = @context.working_url.host
-    host.nil? ? false : host.end_with?(match_criteria)
+    host.nil? ? false : host.match(match_criteria)
   end
 
   def attempt_fetch?
@@ -99,8 +99,12 @@ class TrueURL
     @context.set_working_url(canonical_url, starting_url)
   end
 
-  def find_canonical_header(_headers)
-    nil # TODO
+  def find_canonical_header(headers)
+    return if headers['Link'].nil?
+
+    links = (headers['Link'].is_a? String) ? [ headers['Link'] ] : headers['Link'] 
+    links.each { |link| return link.split(/[<>;]/)[1] if link.end_with?('rel="canonical"') }
+    return nil
   end
 
   def find_canonical_url(html)

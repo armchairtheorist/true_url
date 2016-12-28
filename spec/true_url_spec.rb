@@ -117,98 +117,88 @@ describe TrueURL do
     end
   end
 
-  #    it "should work with Vine" do
-  # 	t = "https://vine.co/v/Ol2jhmDTn6D"
-  #        expect(gc("https://vine.co/v/Ol2jhmDTn6D/embed/simple?audio=yes")).to eq t
-  # end
+  describe "Twitter" do
+    it "supports direct links to tweets" do
+      t = "https://twitter.com/gangsta_project/status/578483098284748801"
+      expect(gc("https://twitter.com/GANGSTA_Project/status/578483098284748801/photo/1")).to eq t
+      expect(gc("https://twitter.com/GANGSTA_Project/status/578483098284748801/")).to eq t
+    end
 
-  #    it "should work with Twitter" do
-  # 	t = "https://twitter.com/gangsta_project/status/578483098284748801"
-  #        expect(gc("https://twitter.com/GANGSTA_Project/status/578483098284748801/photo/1")).to eq t
-  #        expect(gc("https://twitter.com/GANGSTA_Project/status/578483098284748801/")).to eq t
-  #        expect(gc("https://twitter.com/#!/GANGSTA_Project/status/578483098284748801/")).to eq t
-  # end
+    it "should handle hashbangs" do
+      t = "https://twitter.com/gangsta_project/status/578483098284748801"
+      expect(gc("https://twitter.com/#!/GANGSTA_Project/status/578483098284748801/")).to eq t
+    end
+  end
 
-  # describe "Facebook" do
-  #     it "supports Facebook" do
-  #         t = "https://www.facebook.com/cds.sg"
-  #         expect(gc("http://www.facebook.com/cds.sg?fref=photo")).to eq t
-  #     end
-  # end
+  describe 'URL Shorteners' do
+    it 'should work with t.co' do
+      t = 'http://www.prdaily.com/Main/Articles/3_essential_skills_for_todays_PR_pro__18404.aspx'
+      expect(gc('http://t.co/fvaGuRa5Za')).to eq t
+      expect(gc('https://t.co/fvaGuRa5Za')).to eq t
+    end
 
+    it 'should work with fb.me' do
+      t = 'https://www.facebook.com/aksuperdance/posts/1388968827814771'
+      expect(gc('http://fb.me/8qm5kW89k')).to eq t
+    end
 
+    it 'should work with ift.tt' do
+      t = 'http://tedxtaipei.com/articles/the_best_kindergarten_you_have_ever_seen/'
+      expect(gc('http://ift.tt/2iCbPy8')).to eq t
+    end
 
+    it 'should work with compounded URL shorteners' do
+      t = 'https://www.youtube.com/watch?v=jLhjsPjR-xk'
+      expect(gc('https://t.co/g4NYtZE3lW')).to eq t # http://bit.ly/2iCKic3 --> http://youtu.be/jLhjsPjR-xk?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY
+    end
+  end
 
+  describe 'WordPress' do
+    it 'supports missing trailing slashes' do
+      t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
+      expect(gc('http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled')).to eq t
+    end
+  end
 
-  # describe 'URL Shorteners' do
-  #   it 'should work with t.co' do
-  #     t = 'http://www.prdaily.com/Main/Articles/3_essential_skills_for_todays_PR_pro__18404.aspx'
-  #     expect(gc('http://t.co/fvaGuRa5Za')).to eq t
-  #     expect(gc('https://t.co/fvaGuRa5Za')).to eq t
-  #   end
+  describe 'Blogger' do
+    it 'supports missing localized Blogger domains' do
+      t = 'http://thevikiblog.blogspot.com/2015/12/soompi-ios-android.html'
+      expect(gc('http://thevikiblog.blogspot.sg/2015/12/soompi-ios-android.html')).to eq t
+    end
+  end
 
-  #   it 'should work with fb.me' do
-  #     t = 'https://www.facebook.com/aksuperdance/posts/1388968827814771'
-  #     expect(gc('http://fb.me/8qm5kW89k')).to eq t
-  #   end
+  describe 'Other Scenarios' do
+    it 'supports missing schemes' do
+      t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
+      expect(gc('//wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/')).to eq t
+    end
 
-  #   it 'should work with ift.tt' do
-  #     t = 'http://tedxtaipei.com/articles/the_best_kindergarten_you_have_ever_seen/'
-  #     expect(gc('http://ift.tt/2iCbPy8')).to eq t
-  #   end
+    it 'supports scheme override' do
+      t = 'https://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
+      expect(gc('//wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/', scheme_override: 'https')).to eq t
+    end
 
-  #   it 'should work with compounded URL shorteners' do
-  #     t = 'https://www.youtube.com/watch?v=jLhjsPjR-xk'
-  #     expect(gc('https://t.co/g4NYtZE3lW')).to eq t # http://bit.ly/2iCKic3 --> http://youtu.be/jLhjsPjR-xk?list=PLVL8S3lUHf0RqD7TZ6hohWk8Sd3asaqnY
-  #   end
-  # end
+    it 'supports CDJapan' do
+      t = 'http://www.cdjapan.co.jp/product/MDR-1012'
+      expect(gc('http://www.cdjapan.co.jp/aff/click.cgi/e86NDzbdSLQ/4323/A323439/detailview.html?KEY=MDR-1012')).to eq t
+    end
 
-  # describe 'WordPress' do
-  #   it 'supports missing trailing slashes' do
-  #     t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
-  #     expect(gc('http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled')).to eq t
-  #   end
-  # end
+    it 'supports MyAnimeList' do
+      t = 'https://myanimelist.net/forum/?topicid=1371295'
+      expect(gc('https://myanimelist.net/forum?topicid=1371295&goto=newpost')).to eq t
+    end
 
-  # describe 'Blogger' do
-  #   it 'supports missing localized Blogger domains' do
-  #     t = 'http://thevikiblog.blogspot.com/2015/12/soompi-ios-android.html'
-  #     expect(gc('http://thevikiblog.blogspot.sg/2015/12/soompi-ios-android.html')).to eq t
-  #   end
-  # end
+    it 'supports URLs with escapable characters' do
+      t = 'http://goboiano.com/news/2568-attack-on-titan%2527s-first-live-action-trailer-finally-launches'
+      expect(gc("http://media.goboiano.com/news/2568-attack-on-titan's-first-live-action-trailer-finally-launches")).to eq t
 
-  # describe 'Other Scenarios' do
-  #   it 'supports missing schemes' do
-  #     t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
-  #     expect(gc('//wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/')).to eq t
-  #   end
+      t = 'http://randomc.net/image/Kekkai%20Sensen/Kekkai%20Sensen%20-%2001%20-%20Large%2001.jpg'
+      expect(gc('http://randomc.net/image/Kekkai Sensen/Kekkai Sensen - 01 - Large 01.jpg')).to eq t
+    end
 
-  #   it 'supports scheme override' do
-  #     t = 'https://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
-  #     expect(gc('//wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/', scheme_override: 'https')).to eq t
-  #   end
-
-  #   it 'supports CDJapan' do
-  #     t = 'http://www.cdjapan.co.jp/product/MDR-1012'
-  #     expect(gc('http://www.cdjapan.co.jp/aff/click.cgi/e86NDzbdSLQ/4323/A323439/detailview.html?KEY=MDR-1012')).to eq t
-  #   end
-
-  #   it 'supports MyAnimeList' do
-  #     t = 'https://myanimelist.net/forum/?topicid=1371295'
-  #     expect(gc('https://myanimelist.net/forum?topicid=1371295&goto=newpost')).to eq t
-  #   end
-
-  #   it 'supports unnecessary self-expanding sites' do
-  #     t = 'https://sekainoowari.jp/'
-  #     expect(gc('http://sekainoowari.jp')).to eq t
-  #   end
-
-  #   it 'supports URLs with escapable characters' do
-  #     t = 'http://goboiano.com/news/2568-attack-on-titan%2527s-first-live-action-trailer-finally-launches'
-  #     expect(gc("http://media.goboiano.com/news/2568-attack-on-titan's-first-live-action-trailer-finally-launches")).to eq t
-
-  #     t = 'http://randomc.net/image/Kekkai%20Sensen/Kekkai%20Sensen%20-%2001%20-%20Large%2001.jpg'
-  #     expect(gc('http://randomc.net/image/Kekkai Sensen/Kekkai Sensen - 01 - Large 01.jpg')).to eq t
-  #   end
-  # end
+    it 'supports canonical HTTP headers' do
+      t = 'http://www.seoreviewtools.com/canonical-url-location-checker/'
+      expect(gc('http://www.seoreviewtools.com/tests/canonical-header.php')).to eq t
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class TrueURL
   module Strategy
     class NicoVideo
-      def find_canonical(context)
+      def execute(context)
         path = context.working_url.path
 
         if path[0..6] == '/watch/'
