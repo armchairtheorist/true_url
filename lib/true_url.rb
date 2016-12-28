@@ -89,7 +89,7 @@ class TrueURL
 
   def fetch
     response = HTTP.follow
-                   .get(@context.working_url)
+      .get(@context.working_url)
 
     canonical_url = find_canonical_header(response.headers) || find_canonical_url(response.to_s) || response.uri
     @context.set_working_url(canonical_url)

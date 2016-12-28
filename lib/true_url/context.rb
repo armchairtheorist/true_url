@@ -7,7 +7,7 @@ class TrueURL
       @options = options
       @finalized = false
       @attributes = {}
-      @base_url = parse(@options[:base_url]) unless @options[:base_url].nil?
+      @base_url = @options[:base_url].nil? ? @original_url.normalize : parse(@options[:base_url]).normalize
 
       set_working_url(original_url)
     end
