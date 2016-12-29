@@ -3,7 +3,7 @@
 
 # TrueURL
 
-**TrueURL** helps normalize, clean and derive a canonical URL for any given URL. Unlike other similar projects, **TrueURL** uses a configurable multi-strategy approach to do so. It also handles page fetching and inspecting of HTTP headers, ```rel="canonical"``` and ```og:url``` links (in that order) to decide what the canonical URL should be.
+**TrueURL** helps normalize, clean and derive a canonical URL for any given URL. Unlike other similar projects, **TrueURL** uses a configurable multi-strategy approach, including tailored strategies for specific sites (e.g. YouTube, DailyMotion, Twitter, etc.) as well as general strategies (e.g. ```rel="canonical"```, etc.). 
 
 ## Installation
 
