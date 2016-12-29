@@ -27,8 +27,8 @@ I have only tested this gem on Ruby 2.3.0, but there shouldn't be any reason why
 x = TrueURL.new("https://youtu.be/RDocnbkHjhI?list=PLs4hTtftqnlAkiQNdWn6bbKUr-P1wuSm0")
 puts x.canonical # => https://www.youtube.com/watch?v=RDocnbkHjhI
 
-x = TrueURL.new("http://dai.ly/x2k01a9")
-puts x.canonical # => http://www.dailymotion.com/video/x2k01a9_battlefield-what-s-it-like-to-be-in-a-real-life-video-game_fun
+x = TrueURL.new("http://embed.nicovideo.jp/watch/sm25956031/script?w=490&h=307&redirect=1")
+puts x.canonical # => http://www.nicovideo.jp/watch/sm25956031
 
 x = TrueURL.new("http://t.co/fvaGuRa5Za")
 puts x.canonical # => http://www.prdaily.com/Main/Articles/3_essential_skills_for_todays_PR_pro__18404.aspx
