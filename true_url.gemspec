@@ -15,8 +15,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'rspec', '~> 0'
   spec.add_development_dependency 'rake', '~> 0'
-  spec.add_development_dependency 'http', '>= 2.1.0'
-  spec.add_development_dependency 'nokogiri', '>= 1.6.8'
+  spec.add_development_dependency 'http', '~> 2.1', ">= 2.1.0"
+  spec.add_development_dependency 'nokogiri', '~> 1.6', ">= 1.6.8"
 
-  spec.add_dependency 'addressable', '>= 2.4.0'
+  spec.add_runtime_dependency 'addressable', '~> 2.4', ">= 2.4.0"
 end
