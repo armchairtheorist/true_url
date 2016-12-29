@@ -1,9 +1,8 @@
-require 'addressable/uri'
-
 class TrueURL
   autoload :Version, 'true_url/version'
   autoload :Context, 'true_url/context'
   autoload :Strategy, 'true_url/strategy'
+  autoload :Fetch, 'true_url/fetch'
 
   attr_accessor :context, :strategies
 
@@ -49,7 +48,7 @@ class TrueURL
 
     unless @context.finalized?
       if attempt_fetch?
-        fetch
+        TrueURL::Fetch.execute(@context)
         execute_strategies
       end
     end
@@ -85,40 +84,6 @@ class TrueURL
 
     # We only support HTTP or HTTPS
     %w(http https).include?(@context.working_url.scheme)
-  end
-
-  def fetch
-    require 'http' unless defined? HTTP
-
-    starting_url = @context.working_url
-
-    response = HTTP.follow
-                   .get(starting_url)
-
-    canonical_url = find_canonical_header(response.headers) || find_canonical_url(response.to_s) || response.uri
-    @context.set_working_url(canonical_url, starting_url)
-  end
-
-  def find_canonical_header(headers)
-    return if headers['Link'].nil?
-
-    links = headers['Link'].is_a?(String) ? [headers['Link']] : headers['Link']
-    links.each { |link| return link.split(/[<>;]/)[1] if link.end_with?('rel="canonical"') }
-    nil
-  end
-
-  def find_canonical_url(html)
-    require 'nokogiri' unless defined? Nokogiri::HTML
-
-    doc = Nokogiri::HTML(html)
-
-    elem = doc.at('link[rel="canonical"]')
-    canonical_url = elem['href'] unless elem.nil?
-
-    elem = doc.at('meta[property="og:url"]')
-    og_url = elem['content'] unless elem.nil?
-
-    canonical_url || og_url
   end
 
   def scheme_override

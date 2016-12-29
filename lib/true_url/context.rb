@@ -1,3 +1,5 @@
+require 'addressable/uri'
+
 class TrueURL
   class Context
     attr_reader :original_url, :options, :attributes, :working_url
