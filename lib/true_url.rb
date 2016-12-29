@@ -1,6 +1,4 @@
 require 'addressable/uri'
-require 'http'
-require 'nokogiri'
 
 class TrueURL
   autoload :Version, 'true_url/version'
@@ -90,6 +88,8 @@ class TrueURL
   end
 
   def fetch
+    require 'http' unless defined? HTTP
+
     starting_url = @context.working_url
 
     response = HTTP.follow
@@ -108,6 +108,8 @@ class TrueURL
   end
 
   def find_canonical_url(html)
+    require 'nokogiri' unless defined? Nokogiri::HTML
+
     doc = Nokogiri::HTML(html)
 
     elem = doc.at('link[rel="canonical"]')
