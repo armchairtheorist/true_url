@@ -33,7 +33,7 @@ class TrueURL
     private
 
     def parse(url)
-      (url.is_a? Addressable::URI) ? url : Addressable::URI.parse(url)
+      url.is_a?(Addressable::URI) ? url : Addressable::URI.parse(url)
     end
   end
 end

@@ -102,7 +102,7 @@ class TrueURL
   def find_canonical_header(headers)
     return if headers['Link'].nil?
 
-    links = (headers['Link'].is_a? String) ? [headers['Link']] : headers['Link']
+    links = headers['Link'].is_a?(String) ? [headers['Link']] : headers['Link']
     links.each { |link| return link.split(/[<>;]/)[1] if link.end_with?('rel="canonical"') }
     nil
   end
