@@ -89,7 +89,7 @@ describe TrueURL do
 
     it "supports Vimeo's relative canonical links" do
       t = 'https://vimeo.com/channels/staffpicks'
-      expect(gc('http://vimeo.com/channels/staffpicks?some=silly&params=here')).to eq t
+      expect(gc('https://vimeo.com/channels/staffpicks')).to eq t
     end
 
     it 'supports retrieving embed links as attributes' do
