@@ -1,5 +1,6 @@
 [![Gem Version](https://badge.fury.io/rb/true_url.svg)](https://badge.fury.io/rb/true_url)
 [![Code Climate](https://codeclimate.com/github/armchairtheorist/true_url/badges/gpa.svg)](https://codeclimate.com/github/armchairtheorist/true_url)
+[![Build Status](https://travis-ci.org/armchairtheorist/true_url.svg?branch=master)](https://travis-ci.org/armchairtheorist/true_url)
 
 # TrueURL
 
