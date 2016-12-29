@@ -38,9 +38,9 @@ puts x.canonical # => http://www.prdaily.com/Main/Articles/3_essential_skills_fo
 
 * [URLCanonicalize](https://github.com/dominicsayers/url_canonicalize)
 * [UrlParser](https://github.com/activefx/url_parser)
-* [PostRank URI](https://github.com/postrank-labs/postrank-uri) (discontinued)
-* [Linkr](https://github.com/bbc/linkr) (discontinued)
-* [Pope](https://github.com/socksforrobots/pope) (discontinued)
+* [PostRank URI](https://github.com/postrank-labs/postrank-uri)
+* [Linkr](https://github.com/bbc/linkr)
+* [Pope](https://github.com/socksforrobots/pope)
 
 ## License
 **TrueURL** is released under the [MIT license](MIT-LICENSE).
