@@ -43,6 +43,3 @@ puts x.canonical # => http://www.prdaily.com/Main/Articles/3_essential_skills_fo
 * [PostRank URI](https://github.com/postrank-labs/postrank-uri)
 * [Linkr](https://github.com/bbc/linkr)
 * [Pope](https://github.com/socksforrobots/pope)
-
-## License
-**TrueURL** is released under the [MIT license](MIT-LICENSE).
