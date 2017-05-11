@@ -1,9 +1,9 @@
-class TrueURL
-  autoload :Version, 'true_url/version'
-  autoload :Context, 'true_url/context'
-  autoload :Strategy, 'true_url/strategy'
-  autoload :Fetch, 'true_url/fetch'
+require 'true_url/context'
+require 'true_url/fetch'
+require 'true_url/strategy'
+require 'true_url/version'
 
+class TrueURL
   attr_accessor :context, :strategies
 
   OPTIONS = {
