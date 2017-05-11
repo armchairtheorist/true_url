@@ -132,7 +132,7 @@ describe TrueURL do
 
   describe 'URL Shorteners' do
     it 'should work with t.co' do
-      t = 'http://www.prdaily.com/Main/Articles/3_essential_skills_for_todays_PR_pro__18404.aspx'
+      t = 'https://www.prdaily.com/Main/Articles/3_essential_skills_for_todays_PR_pro__18404.aspx'
       expect(gc('http://t.co/fvaGuRa5Za')).to eq t
       expect(gc('https://t.co/fvaGuRa5Za')).to eq t
     end
@@ -189,9 +189,6 @@ describe TrueURL do
     end
 
     it 'supports URLs with escapable characters' do
-      t = 'http://goboiano.com/news/2568-attack-on-titan%2527s-first-live-action-trailer-finally-launches'
-      expect(gc("http://media.goboiano.com/news/2568-attack-on-titan's-first-live-action-trailer-finally-launches")).to eq t
-
       t = 'http://randomc.net/image/Kekkai%20Sensen/Kekkai%20Sensen%20-%2001%20-%20Large%2001.jpg'
       expect(gc('http://randomc.net/image/Kekkai Sensen/Kekkai Sensen - 01 - Large 01.jpg')).to eq t
     end
