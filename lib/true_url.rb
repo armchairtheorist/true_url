@@ -11,7 +11,7 @@ class TrueURL
     fetch: true # Whether to fetch the URL
   }.freeze
 
-  QUERY_VALUES_TO_REMOVE = %w(
+  QUERY_VALUES_TO_REMOVE = %w[
     utm_source
     utm_medium
     utm_term
@@ -21,7 +21,7 @@ class TrueURL
     awesm
     xtor
     PHPSESSID
-  ).freeze
+  ].freeze
 
   def initialize(url, options = {})
     @context = TrueURL::Context.new(url, OPTIONS.merge(options))
@@ -83,7 +83,7 @@ class TrueURL
     return false if @context.working_url.host.nil?
 
     # We only support HTTP or HTTPS
-    %w(http https).include?(@context.working_url.scheme)
+    %w[http https].include?(@context.working_url.scheme)
   end
 
   def scheme_override

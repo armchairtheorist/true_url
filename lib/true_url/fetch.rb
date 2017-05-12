@@ -4,7 +4,7 @@ require 'nokogiri'
 class TrueURL
   module Fetch
     extend self
-    
+
     def execute(context)
       starting_url = context.working_url
 
