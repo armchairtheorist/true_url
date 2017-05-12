@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'true_url'
 
 def gc(unclean_url, options = {})
   TrueURL.new(unclean_url, options).canonical
