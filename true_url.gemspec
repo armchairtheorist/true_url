@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Jonathan Wong']
   spec.email         = ['jonathan@armchairtheorist.com']
   spec.summary       = 'A multi-strategy approach to find the absolutely cleanest and most likely canonical URL of any given URL.'
-  spec.homepage      = 'http://github.com/armchairtheorist/true_url'
+  spec.homepage      = 'https://github.com/armchairtheorist/true_url'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split("\n")
