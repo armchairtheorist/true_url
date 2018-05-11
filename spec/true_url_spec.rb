@@ -32,8 +32,8 @@ describe TrueURL do
     end
 
     it 'supports direct channel links' do
-      t = 'https://www.youtube.com/user/WatchMojo'
-      expect(gc('https://www.youtube.com/channel/UCaWd5_7JhbQBe4dknZhsHJg')).to eq t
+      t = 'https://www.youtube.com/channel/UCaWd5_7JhbQBe4dknZhsHJg'
+      expect(gc('https://www.youtube.com/user/WatchMojo')).to eq t      
     end
 
     it 'supports retrieving embed links as attributes' do
@@ -155,8 +155,8 @@ describe TrueURL do
 
   describe 'WordPress' do
     it 'supports missing trailing slashes' do
-      t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
-      expect(gc('http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled')).to eq t
+      t = 'https://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
+      expect(gc('https://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled')).to eq t
     end
   end
 
@@ -169,13 +169,13 @@ describe TrueURL do
 
   describe 'Other Scenarios' do
     it 'supports missing schemes' do
-      t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
+      t = 'https://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
       expect(gc('//wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/')).to eq t
     end
 
     it 'supports scheme override' do
-      t = 'https://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
-      expect(gc('//wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/', scheme_override: 'https')).to eq t
+      t = 'http://wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/'
+      expect(gc('//wowjapan.asia/2015/04/anime-gargantia-on-the-verdurous-planet-2nd-season-cancelled/', scheme_override: 'http')).to eq t
     end
 
     it 'supports CDJapan' do
